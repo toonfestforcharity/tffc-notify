@@ -1,0 +1,121 @@
+<!doctype html>
+<html>
+
+
+  <!-- This (demo.html) is used for designing the donation notfication -->
+
+
+	<head>
+		<link rel="stylesheet" type="text/css" href="animate.css"/>
+
+		<!-- Internal stylesheet -->
+			<style>
+				#container {
+				  left: 0;
+				  top: 0;
+				  width: 1280px;
+				  height: 720px;
+				  position: absolute;
+				  overflow: hidden;
+				}
+				h1, h2 {
+					font-weight: normal;
+				}
+				body {
+					font-family: Montserrat, Arial, sans-serif;
+					font-size: 22px;
+					-webkit-font-smoothing: antialiased;
+					-moz-osx-font-smoothing: grayscale;
+					color: #000;
+				}
+				strong {
+					font-weight: normal;
+				}
+
+				div.donationAlert, div.recentMessage {
+					display: block;
+   				min-height: 250px;
+				}
+				div.newDonation {
+					margin-top: 440px;
+					background-image: url('../../assets/doodle_anim.gif');
+    			background-repeat: no-repeat;
+    			display: block;
+   				min-height: 250px;
+					opacity: 0;
+				}
+				h2.newDonationText {
+					padding-top: 100px;
+    			padding-left: 250px;
+					text-shadow: 0px 0px 1px #000, 0px 0px 2px #000, 0px 0px 3px #000,
+					0px 0px 4px #000, 0px 0px 5px #000;
+					opacity: 1;
+   				}
+    		p.newDonationText, p.newDonationMessage {
+					padding-top: 100px;
+    			padding-left: 250px;
+					text-shadow: 0px 0px 1px #000, 0px 0px 2px #000, 0px 0px 3px #000,
+					0px 0px 4px #000, 0px 0px 5px #000;
+					opacity: 0;
+    			}
+    		div#goal {
+    			top: 8px;
+				}
+				// div.recentDonations, div.donationAlert, div.recentMessage, div.thermo {
+				//	border: 1px solid #fff;
+				//	margin-top: 35px;
+				//	margin-bottom: 35px;
+				//	padding: 10px;
+				//	width: 700px;
+				//}
+				div.recentDonations h2, div.donationAlert h2, div.recentMessage h2 {
+				}
+				div.note p, div.footer p {
+					font-family: Helvetica, Arial, sans-serif;
+				}
+				div.note p {
+					font-size: 20px;
+				}
+			</style>
+
+
+		<!-- Refresh the page every ten seconds to get data from Extra Life's website.
+		-->
+		<meta http-equiv="refresh" content="50">
+
+
+		<title>TFFC's Extra Life Donation Tracker</title>
+	</head>
+	<body>
+		<div id='container'>
+		<!-- For styling and organization purposes, this is the donation alert section -->
+	    <div class='donationAlert'>
+	      <div class='container'>
+	        <div class='newDonation'>
+						<audio autoplay src='../../assets/ding.mp3'></audio>
+	          <h2 class='newDonationNotification'>
+							<ul class="texts">
+								<li data-out-effect="fadeOut" data-out-shuffle="true">NEW DONATION!</li>
+        				<li data-in-effect="fadeIn">1Fyme donated $0.00</li>
+								<li data-in-effect="fadeIn">The quick brown fox jumps over the lazy dog.</li>
+    					</ul>
+	        </div>
+	      </div>
+	    </div>
+		</div>
+		<!-- Load jquery -->
+		<script src="jquery-2.1.4.min.js"></script>
+		<script src="jquery.lettering.js"></script>
+		<script src="jquery.textillate.js"></script>
+		<script>
+			var main = function() {
+				$('.newDonationNotification').textillate().delay(25000).fadeOut();
+					 $('div.newDonation').delay(100).animate({opacity: 1}, 500).delay(30000).fadeOut();
+			}
+			$(document).ready(main);
+		</script>
+		<!-- <div class="footer">
+			<p>TFFC's Extra Life Donation Tracker</p>
+		</div> -->
+	</body>
+</html>
