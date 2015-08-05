@@ -3,8 +3,8 @@
 
 
   <!-- This (notification.php) is designed to work with browser source plugins in Open Broadcaster Software -->
-  
-  
+
+
 	<head>
 		<!-- Load jquery -->
 		<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -259,8 +259,8 @@
 				}
 
 				// CASE 4
-				// IF there are any identical duplicates (name, amount, and message are
-				// the same.) Then there IS a new donation.
+				// If there are any identical duplicates (name, amount, and message are
+				// the same.) Then there is a new donation.
 				// This is unlikely to happen, but it CAN happen.
 				if (strcmp($recent, $recent2) == 0 && strcmp($recentmessage, $recentmes2) == 0) {
 					echo "<div class='container'><div class='newDonation'><h2 class='newDonationText'>NEW DONATION!</h1><audio autoplay src='../../assets/ding.mp3'></audio>";
@@ -270,6 +270,19 @@
 //				echo "If you see this, then the tracker is working! :)";
 		?>
 		</div>
+
+
+<!-- Finale... ->
+<!-- Now let's use JavaScript, jQuery, animate.css, lettering.jquery,js, and
+      textillate.js to make the donation notfication look nice. -->
+
+<!-- Let's get the length.. -->
+      <script>
+          var TextInsideH2 = document.getElementsByTagName('h2')[0].textContent;
+          console.log(TextInsideH2.length);
+      </script>
+
+
 
 		<!-- Recent Donations and Most Recent Message-->
 		<?php
