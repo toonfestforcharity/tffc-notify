@@ -8,7 +8,7 @@
 	<head>
 		<!-- Load jquery -->
 		<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
+		<link rel="stylesheet" type="text/css" href="animate.css"/>
 
 		<!-- Get the stylesheet from Extra Life's website for the thermometer -->
 		<link rel="stylesheet" href="http://www.extra-life.org/resources/css/widgets/300x250thermo/widget_300x250thermo.css?v=42150.6842014" type="text/css" />
@@ -27,65 +27,83 @@
 
 
 		<!-- Internal stylesheet -->
-			<style>
-				h1, h2 {
-					font-weight: normal;
+		<style>
+			#container {
+				left: 0;
+				top: 0;
+				width: 1280px;
+				height: 720px;
+				position: absolute;
+				overflow: hidden;
+			}
+			h1, h2 {
+				font-weight: normal;
+			}
+			body {
+				font-family: Montserrat, Arial, sans-serif;
+				font-size: 22px;
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+				color: #000;
+			}
+			strong {
+				font-weight: normal;
+			}
+
+			div.donationAlert, div.recentMessage {
+				display: block;
+				min-height: 250px;
+			}
+			div.newDonation {
+				margin-top: 440px;
+				background-image: url('../../assets/doodle_anim.gif');
+				background-repeat: no-repeat;
+				display: block;
+				min-height: 250px;
+				opacity: 0;
+			}
+			h2.newDonationNotification {
+				padding-top: 100px;
+				padding-left: 250px;
+				text-shadow: 0px 0px 1px #000, 0px 0px 2px #000, 0px 0px 3px #000,
+				0px 0px 4px #000, 0px 0px 5px #000;
+				opacity: 1;
+				color: #fff;
 				}
-				body {
-					font-family: Arial, sans-serif;
-					font-size: 22px;
-					-webkit-font-smoothing: antialiased;
-					-moz-osx-font-smoothing: grayscale;
-					color: #fff;
+			p.newDonationText, p.newDonationMessage {
+				padding-top: 100px;
+				padding-left: 250px;
+				text-shadow: 0px 0px 1px #000, 0px 0px 2px #000, 0px 0px 3px #000,
+				0px 0px 4px #000, 0px 0px 5px #000;
+				opacity: 0;
 				}
-				strong {
-					font-weight: normal;
-				}
-				//div.donationAlert {
-				//	background: #00ff00;
-				//}
-				div.donationAlert, div.recentMessage {
-					display: block;
-   					min-height: 250px;
-				}
-				div.newDonation {
-					background-image: url('../../assets/doodle_anim.gif');
-    					background-repeat: no-repeat;
-    					display: block;
-   					min-height: 250px;
-					opacity: 0;
-				}
-				h2.newDonationText {
-    					padding-top: 60px;
-    					padding-left: 250px;
-					text-shadow: 0px 0px 1px #000, 0px 0px 2px #000, 0px 0px 3px #000,
-					0px 0px 4px #000, 0px 0px 5px #000;
-   				}
-    				p.newDonationText, p.newDonationMessage {
-    					padding-left: 250px;
-					text-shadow: 0px 0px 1px #000, 0px 0px 2px #000, 0px 0px 3px #000,
-					0px 0px 4px #000, 0px 0px 5px #000;
-    				}
-    				div#goal {
-    					top: 8px;
-				}
-				// div.recentDonations, div.donationAlert, div.recentMessage, div.thermo {
-				//	border: 1px solid #fff;
-				//	margin-top: 35px;
-				//	margin-bottom: 35px;
-				//	padding: 10px;
-				//	width: 700px;
-				//}
-				div.recentDonations h2, div.donationAlert h2, div.recentMessage h2 {
-					margin-top: -2px;
-				}
-				div.note p, div.footer p {
-					font-family: Helvetica, Arial, sans-serif;
-				}
-				div.note p {
-					font-size: 20px;
-				}
-			</style>
+			div#goal {
+				top: 8px;
+			}
+			// div.recentDonations, div.donationAlert, div.recentMessage, div.thermo {
+			//	border: 1px solid #fff;
+			//	margin-top: 35px;
+			//	margin-bottom: 35px;
+			//	padding: 10px;
+			//	width: 700px;
+			//}
+			div.recentDonations h2, div.donationAlert h2, div.recentMessage h2 {
+			}
+			div.note p, div.footer p {
+				font-family: Helvetica, Arial, sans-serif;
+			}
+			div.note p {
+				font-size: 20px;
+			}
+			p.donator {
+				position: absolute;
+				left: 250px;
+				bottom: 150px;
+				color: white;
+				background-color: rgba(35, 193, 232, 0.5);
+				opacity: 0;
+			}
+		</style>
 
 
 		<!-- Have the donation alert fade out -->
@@ -207,13 +225,20 @@
 				// If the recent donation AND recent message (from the Extra Life website)
 				// does not match what is stored in recent.html & recentmessage.html
 				if (strcmp($recent, $recentstr) !== 0 && strcmp($recmesfile, $recentmessage) !== 0) {
-		  		echo "<div class='container'><div class='newDonation'><h2 class='newDonationText'>NEW DONATION!</h1><audio autoplay src='../../assets/ding.mp3'></audio>";
-				echo "<p class='newDonationText'>".$recent."</p>";
+		  		echo "<div class='container'><div class='newDonation'><audio autoplay src='../../assets/shortRace.webm'></audio>";
+					echo "<h2 class='newDonationNotification'>
+						<ul class="texts">
+							<li data-in-effect="rollIn" data-out-effect="rotateOut" data-out-sync="true">NEW DONATION!</li>
+							<li data-in-effect="rollIn" data-out-effect="rotateOut" data-out-sync="true">".$recent."</li>";
+						echo "<li data-in-effect="rollIn" data-out-effect="rotateOut" data-out-sync="true">".recentmessage.""</li>";
+
+
+						echo "</ul></h2>";
+						echo "<p class="donator">".recent."</p>";
     			fclose($recentsto);
    				$recentsto = fopen("recent.html", "w") or die("Unable to open file!");
    				fwrite($recentsto, $recent);
   				fclose($recentsto);
-   				echo "<p class='newDonationMessage'>".$recentmessage."</div></div>";
    				$recentmesto = fopen("recentmessage.html", "w") or die("Unable to open file!");
 				fwrite($recentmesto, $recentmessage);
   				fclose($recentmesto);
@@ -223,8 +248,16 @@
 				// If the recent donation does not match what is stored in recent.html,
 				// but the messages are both blank or identical.
 				if (strcmp($recent, $recentstr) !== 0 && strcmp($recmesfile, $recentmessage) == 0) {
-		 	 	echo "<div class='container'><div class='newDonation'><h2 class='newDonationText'>NEW DONATION!</h1><audio autoplay src='../../assets/ding.mp3'></audio>";
-				echo "<p class='newDonationText'>".$recent."</p>";
+					echo "<div class='container'><div class='newDonation'><audio autoplay src='../../assets/shortRace.webm'></audio>";
+					echo "<h2 class='newDonationNotification'>
+						<ul class="texts">
+							<li data-in-effect="rollIn" data-out-effect="rotateOut" data-out-sync="true">NEW DONATION!</li>
+							<li data-in-effect="rollIn" data-out-effect="rotateOut" data-out-sync="true">".$recent."</li>";
+						echo "<li data-in-effect="rollIn" data-out-effect="rotateOut" data-out-sync="true">".recentmessage.""</li>";
+
+
+						echo "</ul></h2>";
+						echo "<p class="donator">".recent."</p>";
     			fclose($recentsto);
    				$recentsto = fopen("recent.html", "w") or die("Unable to open file!");
    				fwrite($recentsto, $recent);
@@ -241,8 +274,16 @@
 				// If someone happens to donate the same amount, but leaves a different message,
 				// the tracker should be able to detect it.
 				if (strcmp($recent, $recentstr) == 0 && strcmp($recmesfile, $recentmessage) !== 0) {
-		  		echo "<div class='container'><div class='newDonation'><h2 class='newDonationText'>NEW DONATION!</h1><audio autoplay src='../../assets/ding.mp3'></audio>";
-				echo "<p class='newDonationText'>".$recent."</p>";
+					echo "<div class='container'><div class='newDonation'><audio autoplay src='../../assets/shortRace.webm'></audio>";
+					echo "<h2 class='newDonationNotification'>
+						<ul class="texts">
+							<li data-in-effect="rollIn" data-out-effect="rotateOut" data-out-sync="true">NEW DONATION!</li>
+							<li data-in-effect="rollIn" data-out-effect="rotateOut" data-out-sync="true">".$recent."</li>";
+						echo "<li data-in-effect="rollIn" data-out-effect="rotateOut" data-out-sync="true">".recentmessage.""</li>";
+
+
+						echo "</ul></h2>";
+						echo "<p class="donator">".recent."</p>";
 
 				// The donation alert would be the same.
     				// fclose($recentsto);
@@ -252,7 +293,6 @@
 
 				// The donation message would be different.
 
-   					echo "<p class='newDonationMessage'>".$recentmessage."</div></div>";
    					$recentmesto = fopen("recentmessage.html", "w") or die("Unable to open file!");
    					fwrite($recentmesto, $recentmessage);
   					fclose($recentmesto);
@@ -263,8 +303,16 @@
 				// the same.) Then there is a new donation.
 				// This is unlikely to happen, but it CAN happen.
 				if (strcmp($recent, $recent2) == 0 && strcmp($recentmessage, $recentmes2) == 0) {
-					echo "<div class='container'><div class='newDonation'><h2 class='newDonationText'>NEW DONATION!</h1><audio autoplay src='../../assets/ding.mp3'></audio>";
-					echo "<p class='newDonationText'>".$recent."</p>";
+					echo "<div class='container'><div class='newDonation'><audio autoplay src='../../assets/shortRace.webm'></audio>";
+					echo "<h2 class='newDonationNotification'>
+						<ul class="texts">
+							<li data-in-effect="rollIn" data-out-effect="rotateOut" data-out-sync="true">NEW DONATION!</li>
+							<li data-in-effect="rollIn" data-out-effect="rotateOut" data-out-sync="true">".$recent."</li>";
+						echo "<li data-in-effect="rollIn" data-out-effect="rotateOut" data-out-sync="true">".recentmessage.""</li>";
+
+
+						echo "</ul></h2>";
+						echo "<p class="donator">".recent."</p>";
 				}
 
 //				echo "If you see this, then the tracker is working! :)";
@@ -299,6 +347,19 @@
 			//echo "<h2>Most recent message:</h2>".$recentmessage;
 			//echo "</div>";
 		?>
+		<!-- Load jquery -->
+		<script src="jquery-2.1.4.min.js"></script>
+		<script src="jquery.lettering.js"></script>
+		<script src="jquery.textillate.js"></script>
+		<script>
+			var main = function() {
+				$('.newDonationNotification').textillate().delay(25000).fadeOut();
+				$('div.newDonation').delay(100).animate({opacity: 1}, 500).delay(25000).fadeOut();
+				$('p.donator').delay(10000).animate({opacity: 1, bottom: "+=10px"}, 300).delay(15000).animate({opacity: 0, bottom: "-=10px"}, 300).fadeOut();
+			}
+			$(document).ready(main);
+		</script>
+
 		<!-- <div class="footer">
 			<p>TFFC's Extra Life Donation Tracker</p>
 		</div> -->
