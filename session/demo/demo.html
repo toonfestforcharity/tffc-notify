@@ -77,6 +77,14 @@
 				div.note p {
 					font-size: 20px;
 				}
+				p.donator {
+					position: absolute;
+					left: 250px;
+					bottom: 150px;
+					color: white;
+					background-color: rgba(35, 193, 232, 0.5);
+					opacity: 0;
+				}
 			</style>
 
 
@@ -93,7 +101,7 @@
 	    <div class='donationAlert'>
 	      <div class='container'>
 	        <div class='newDonation'>
-						<audio autoplay src='../../assets/ding.mp3'></audio>
+						<audio autoplay src='../../assets/shortRace.webm'></audio>
 	          <h2 class='newDonationNotification'>
 							<ul class="texts">
 								<li data-in-effect="rollIn" data-out-effect="rotateOut" data-out-sync="true">NEW DONATION!</li>
@@ -101,6 +109,7 @@
 								<li data-in-effect="rollIn" data-out-effect="rotateOut" data-out-sync="true">The quick brown fox jumps over the lazy dog.</li>
     					</ul>
 						</h2>
+						<p class="donator">1Fyme donated $0.00</p>
 	        </div>
 	      </div>
 	    </div>
@@ -115,7 +124,8 @@
 		<script>
 			var main = function() {
 				$('.newDonationNotification').textillate().delay(25000).fadeOut();
-				$('div.newDonation').delay(100).animate({opacity: 1}, 500).delay(30000).fadeOut();
+				$('div.newDonation').delay(100).animate({opacity: 1}, 500).delay(25000).fadeOut();
+				$('p.donator').delay(10000).animate({opacity: 1, bottom: "+=10px"}, 300).delay(15000).animate({opacity: 0, bottom: "-=10px"}, 300).fadeOut();
 			}
 			$(document).ready(main);
 		</script>
