@@ -1,13 +1,11 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 
 
-  <!-- This (notification.php) is designed to work with browser source plugins in Open Broadcaster Software -->
+  <!-- notification.php is designed to work with browser source plugins in Open Broadcaster Software -->
 
 
 	<head>
-		<!-- Load jquery -->
-		<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="animate.css"/>
 
 		<!-- Get the stylesheet from Extra Life's website for the thermometer -->
@@ -106,16 +104,9 @@
 		</style>
 
 
-		<!-- Have the donation alert fade out -->
-		<script>
-			var main = function() {
-  				$('div.newDonation').animate({opacity: 1}, 500).delay(15000).fadeOut()
-			}
-			$(document).ready(main);
-		</script>
 
 
-		<!-- Refresh the page every ten seconds to get data from Extra Life's website.
+		<!-- Refresh the page every fifty seconds to get data from Extra Life's website.
 		-->
 		<meta http-equiv="refresh" content="50">
 
@@ -126,6 +117,7 @@
 
 
 		<?php
+//		echo "Hello, world!";
 			// Use simple_html_dom.php
 			require '../../assets/simple_html_dom.php';
 
@@ -226,16 +218,12 @@
 				// does not match what is stored in recent.html & recentmessage.html
 				if (strcmp($recent, $recentstr) !== 0 && strcmp($recmesfile, $recentmessage) !== 0) {
 		  		echo "<div class='container'><div class='newDonation'><audio autoplay src='../../assets/shortRace.webm'></audio>";
-					echo "<h2 class='newDonationNotification'>
-						<ul class="texts">
-							<li data-in-effect="rollIn" data-out-effect="rotateOut" data-out-sync="true">NEW DONATION!</li>
-							<li data-in-effect="rollIn" data-out-effect="rotateOut" data-out-sync="true">".$recent."</li>";
-						echo "<li data-in-effect="rollIn" data-out-effect="rotateOut" data-out-sync="true">".recentmessage.""</li>";
+					echo "<h2 class='newDonationNotification'><ul class='texts'><li data-in-effect='rollIn' data-out-effect='rotateOut' data-out-sync='true'>NEW DONATION!</li><li data-in-effect='rollIn' data-out-effect='rotateOut' data-out-sync='true'>".$recent."</li>";
+						echo "<li data-in-effect='rollIn'data-out-effect='rotateOut' data-out-sync='true'>".$recentmessage."</li>";
 
 
 						echo "</ul></h2>";
-						echo "<p class="donator">".recent."</p>";
-    			fclose($recentsto);
+						echo "<p class='donator'>".$recent."</p>";
    				$recentsto = fopen("recent.html", "w") or die("Unable to open file!");
    				fwrite($recentsto, $recent);
   				fclose($recentsto);
@@ -248,17 +236,14 @@
 				// If the recent donation does not match what is stored in recent.html,
 				// but the messages are both blank or identical.
 				if (strcmp($recent, $recentstr) !== 0 && strcmp($recmesfile, $recentmessage) == 0) {
-					echo "<div class='container'><div class='newDonation'><audio autoplay src='../../assets/shortRace.webm'></audio>";
-					echo "<h2 class='newDonationNotification'>
-						<ul class="texts">
-							<li data-in-effect="rollIn" data-out-effect="rotateOut" data-out-sync="true">NEW DONATION!</li>
-							<li data-in-effect="rollIn" data-out-effect="rotateOut" data-out-sync="true">".$recent."</li>";
-						echo "<li data-in-effect="rollIn" data-out-effect="rotateOut" data-out-sync="true">".recentmessage.""</li>";
+	echo "<div class='container'><div class='newDonation'><audio autoplay src='../../assets/shortRace.webm'></audio>";
+					echo "<h2 class='newDonationNotification'><ul class='texts'><li data-in-effect='rollIn' data-out-effect='rotateOut' data-out-sync='true'>NEW DONATION!</li><li data-in-effect='rollIn' data-out-effect='rotateOut' data-out-sync='true'>".$recent."</li>";
+						echo "<li data-in-effect='rollIn'data-out-effect='rotateOut' data-out-sync='true'>".$recentmessage."</li>";
+
 
 
 						echo "</ul></h2>";
-						echo "<p class="donator">".recent."</p>";
-    			fclose($recentsto);
+						echo "<p class='donator'>".$recent."</p>";
    				$recentsto = fopen("recent.html", "w") or die("Unable to open file!");
    				fwrite($recentsto, $recent);
   				fclose($recentsto);
@@ -274,16 +259,14 @@
 				// If someone happens to donate the same amount, but leaves a different message,
 				// the tracker should be able to detect it.
 				if (strcmp($recent, $recentstr) == 0 && strcmp($recmesfile, $recentmessage) !== 0) {
-					echo "<div class='container'><div class='newDonation'><audio autoplay src='../../assets/shortRace.webm'></audio>";
-					echo "<h2 class='newDonationNotification'>
-						<ul class="texts">
-							<li data-in-effect="rollIn" data-out-effect="rotateOut" data-out-sync="true">NEW DONATION!</li>
-							<li data-in-effect="rollIn" data-out-effect="rotateOut" data-out-sync="true">".$recent."</li>";
-						echo "<li data-in-effect="rollIn" data-out-effect="rotateOut" data-out-sync="true">".recentmessage.""</li>";
+	echo "<div class='container'><div class='newDonation'><audio autoplay src='../../assets/shortRace.webm'></audio>";
+					echo "<h2 class='newDonationNotification'><ul class='texts'><li data-in-effect='rollIn' data-out-effect='rotateOut' data-out-sync='true'>NEW DONATION!</li><li data-in-effect='rollIn' data-out-effect='rotateOut' data-out-sync='true'>".$recent."</li>";
+						echo "<li data-in-effect='rollIn'data-out-effect='rotateOut' data-out-sync='true'>".$recentmessage."</li>";
+
 
 
 						echo "</ul></h2>";
-						echo "<p class="donator">".recent."</p>";
+						echo "<p class='donator'>".$recent."</p>";
 
 				// The donation alert would be the same.
     				// fclose($recentsto);
@@ -303,16 +286,14 @@
 				// the same.) Then there is a new donation.
 				// This is unlikely to happen, but it CAN happen.
 				if (strcmp($recent, $recent2) == 0 && strcmp($recentmessage, $recentmes2) == 0) {
-					echo "<div class='container'><div class='newDonation'><audio autoplay src='../../assets/shortRace.webm'></audio>";
-					echo "<h2 class='newDonationNotification'>
-						<ul class="texts">
-							<li data-in-effect="rollIn" data-out-effect="rotateOut" data-out-sync="true">NEW DONATION!</li>
-							<li data-in-effect="rollIn" data-out-effect="rotateOut" data-out-sync="true">".$recent."</li>";
-						echo "<li data-in-effect="rollIn" data-out-effect="rotateOut" data-out-sync="true">".recentmessage.""</li>";
+	echo "<div class='container'><div class='newDonation'><audio autoplay src='../../assets/shortRace.webm'></audio>";
+					echo "<h2 class='newDonationNotification'><ul class='texts'><li data-in-effect='rollIn' data-out-effect='rotateOut' data-out-sync='true'>NEW DONATION!</li><li data-in-effect='rollIn' data-out-effect='rotateOut' data-out-sync='true'>".$recent."</li>";
+						echo "<li data-in-effect='rollIn'data-out-effect='rotateOut' data-out-sync='true'>".$recentmessage."</li>";
+
 
 
 						echo "</ul></h2>";
-						echo "<p class="donator">".recent."</p>";
+						echo "<p class='donator'>".$recent."</p>";
 				}
 
 //				echo "If you see this, then the tracker is working! :)";
