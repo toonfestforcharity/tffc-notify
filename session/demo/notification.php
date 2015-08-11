@@ -261,7 +261,7 @@
 				if (strcmp($recent, $recentstr) == 0 && strcmp($recmesfile, $recentmessage) !== 0) {
 	echo "<div class='container'><div class='newDonation'><audio autoplay src='../../assets/shortRace.webm'></audio>";
 					echo "<h2 class='newDonationNotification'><ul class='texts'><li data-in-effect='rollIn' data-out-effect='rotateOut' data-out-sync='true'>NEW DONATION!</li><li data-in-effect='rollIn' data-out-effect='rotateOut' data-out-sync='true'>".$recent."</li>";
-						echo "<li data-in-effect='rollIn'data-out-effect='rotateOut' data-out-sync='true'>".$recentmessage."</li>";
+						echo "<li data-in-effect='rollIn' data-out-effect='rotateOut' data-out-sync='true'>".$recentmessage."</li>";
 
 
 
