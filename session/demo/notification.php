@@ -124,7 +124,7 @@
 //			echo "Got simple_html_dom.php! Thanks!";
 
 			// Get html data from Extra Life's website
-			$html = file_get_html('http://www.extra-life.org/index.cfm?fuseaction=donorDrive.participantDonations&participantID=148534');
+			$html = file_get_html('http://www.extra-life.org/index.cfm?fuseaction=donorDrive.participantDonations&participantID=');
 
 //			echo "<br>Extra Life website loaded!";
 
@@ -133,9 +133,10 @@
 			$recentmesfile = file_get_html('recentmessage.html');
 //			echo "<br>Temporary HTML files loaded!";
 
-			// Get the fourth <h1>
-			$group = $html->find('h1', 4);
+//			 Get the fourth <h1>
+//			$group = $html->find('h1', 3);
 //			echo "<br>Got the fourth h1 from the website!";
+// echo $group;
 			// Get the third <strong>
 			// This should be the most recent donation.
 			$recent = $html->find('strong', 3);
@@ -238,7 +239,8 @@
 				if (strcmp($recent, $recentstr) !== 0 && strcmp($recmesfile, $recentmessage) == 0) {
 	echo "<div class='container'><div class='newDonation'><audio autoplay src='../../assets/shortRace.webm'></audio>";
 					echo "<h2 class='newDonationNotification'><ul class='texts'><li data-in-effect='rollIn' data-out-effect='rotateOut' data-out-sync='true'>NEW DONATION!</li><li data-in-effect='rollIn' data-out-effect='rotateOut' data-out-sync='true'>".$recent."</li>";
-						echo "<li data-in-effect='rollIn'data-out-effect='rotateOut' data-out-sync='true'>".$recentmessage."</li>";
+					//		There is no new message to be displayed.
+					//		echo "<li data-in-effect='rollIn'data-out-effect='rotateOut' data-out-sync='true'>".$recentmessage."</li>";
 
 
 
