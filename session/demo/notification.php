@@ -6,6 +6,7 @@
 
 
 	<head>
+		<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" type="text/css" href="animate.css"/>
 
 		<!-- Get the stylesheet from Extra Life's website for the thermometer -->
@@ -38,7 +39,7 @@
 				font-weight: normal;
 			}
 			body {
-				font-family: Montserrat, Arial, sans-serif;
+				font-family: 'Montserrat', Arial, sans-serif;
 				font-size: 22px;
 				-webkit-font-smoothing: antialiased;
 				-moz-osx-font-smoothing: grayscale;
@@ -124,7 +125,7 @@
 //			echo "Got simple_html_dom.php! Thanks!";
 
 			// Get html data from Extra Life's website
-			$html = file_get_html('http://www.extra-life.org/index.cfm?fuseaction=donorDrive.participantDonations&participantID=');
+			$html = file_get_html('http://www.extra-life.org/index.cfm?fuseaction=donorDrive.participantDonations&participantID=143797');
 
 //			echo "<br>Extra Life website loaded!";
 
@@ -171,7 +172,7 @@
 				// Since the web page is open, notify the user to refresh the page. No donation information will show.
 				// The web page should refresh by itself anyway.
     				echo "Error: ";
-				echo "Tracker files resetting...<br>";
+				echo "Tracker file 'recentDonation' resetting...<br>";
 
 				// Open recent.html for writing. If unable to open recent.html, notify the user.
    				$recentstor = fopen("recent.html", "w") or die("The tracker does not have permission to open recent.html");
@@ -189,7 +190,7 @@
 				// Since the web page is open, notify the user to refresh the page. No donation information will show.
 				// The web page should refresh by itself anyway.
     				echo "Error: ";
-				echo "Tracker file resetting...";
+				echo "Tracker file 'messages'  resetting...";
 
    				// Open recentmessage.html for writing. If unable to open recentmessage.html, notify the user.
    				$recentstorm = fopen("recentmessage.html", "w") or die("The tracker does not have permission to open recentmessage.html");
@@ -202,7 +203,6 @@
 			}
 		// Get the first (the only) <em> from our recentmessage.html file
 		$recmesfile = $recentmesfile->find('em', 0);
-
 		// Get the first (the only) <strong> from our recent.html file
 	    	$recentstr = $recentfile->find('strong', 0);
 		?>
@@ -210,18 +210,16 @@
 		<!-- For styling and organization purposes, this is the donation alert section -->
 		<div class='donationAlert'>
 
-
 			<!-- There are four different ways to check for a new donation. -->
 			<?php
 
 				// CASE 1
 				// If the recent donation AND recent message (from the Extra Life website)
 				// does not match what is stored in recent.html & recentmessage.html
-				if (strcmp($recent, $recentstr) !== 0 && strcmp($recmesfile, $recentmessage) !== 0) {
+				if (strcmp($recent, $recentstr) !== 0 && strcmp($recmesfile, $recentmessage) !== 0 && strlen( $recent ) !== 0 && strlen($recentmessage !== 0 ) ) {
 		  		echo "<div class='container'><div class='newDonation'><audio autoplay src='../../assets/shortRace.webm'></audio>";
 					echo "<h2 class='newDonationNotification'><ul class='texts'><li data-in-effect='rollIn' data-out-effect='rotateOut' data-out-sync='true'>NEW DONATION!</li><li data-in-effect='rollIn' data-out-effect='rotateOut' data-out-sync='true'>".$recent."</li>";
 						echo "<li data-in-effect='rollIn'data-out-effect='rotateOut' data-out-sync='true'>".$recentmessage."</li>";
-
 
 						echo "</ul></h2>";
 						echo "<p class='donator'>".$recent."</p>";
@@ -236,7 +234,7 @@
 				// CASE 2
 				// If the recent donation does not match what is stored in recent.html,
 				// but the messages are both blank or identical.
-				if (strcmp($recent, $recentstr) !== 0 && strcmp($recmesfile, $recentmessage) == 0) {
+				if (strcmp($recent, $recentstr) !== 0 && strcmp($recmesfile, $recentmessage) == 0 && strlen($recent) !== 0) {
 	echo "<div class='container'><div class='newDonation'><audio autoplay src='../../assets/shortRace.webm'></audio>";
 					echo "<h2 class='newDonationNotification'><ul class='texts'><li data-in-effect='rollIn' data-out-effect='rotateOut' data-out-sync='true'>NEW DONATION!</li><li data-in-effect='rollIn' data-out-effect='rotateOut' data-out-sync='true'>".$recent."</li>";
 					//		There is no new message to be displayed.
@@ -260,7 +258,7 @@
 				// CASE 3
 				// If someone happens to donate the same amount, but leaves a different message,
 				// the tracker should be able to detect it.
-				if (strcmp($recent, $recentstr) == 0 && strcmp($recmesfile, $recentmessage) !== 0) {
+				if (strcmp($recent, $recentstr) == 0 && strcmp($recmesfile, $recentmessage) !== 0 && strlen($recent) !== 0 ) {
 	echo "<div class='container'><div class='newDonation'><audio autoplay src='../../assets/shortRace.webm'></audio>";
 					echo "<h2 class='newDonationNotification'><ul class='texts'><li data-in-effect='rollIn' data-out-effect='rotateOut' data-out-sync='true'>NEW DONATION!</li><li data-in-effect='rollIn' data-out-effect='rotateOut' data-out-sync='true'>".$recent."</li>";
 						echo "<li data-in-effect='rollIn' data-out-effect='rotateOut' data-out-sync='true'>".$recentmessage."</li>";
@@ -287,7 +285,7 @@
 				// If there are any identical duplicates (name, amount, and message are
 				// the same.) Then there is a new donation.
 				// This is unlikely to happen, but it CAN happen.
-				if (strcmp($recent, $recent2) == 0 && strcmp($recentmessage, $recentmes2) == 0) {
+				if (strcmp($recent, $recent2) == 0 && strcmp($recentmessage, $recentmes2) == 0 && strlen($recent) !== 0 ) {
 	echo "<div class='container'><div class='newDonation'><audio autoplay src='../../assets/shortRace.webm'></audio>";
 					echo "<h2 class='newDonationNotification'><ul class='texts'><li data-in-effect='rollIn' data-out-effect='rotateOut' data-out-sync='true'>NEW DONATION!</li><li data-in-effect='rollIn' data-out-effect='rotateOut' data-out-sync='true'>".$recent."</li>";
 						echo "<li data-in-effect='rollIn'data-out-effect='rotateOut' data-out-sync='true'>".$recentmessage."</li>";
